@@ -9,23 +9,22 @@ from .models import Driver, Car, Manufacturer
 @login_required
 def index(request):
     """View function for the home page of the site."""
-    
+
     num_drivers = Driver.objects.count()
     num_cars = Car.objects.count()
     num_manufacturers = Manufacturer.objects.count()
-    
-    # Visit counter
+
     num_visits = request.session.get("num_visits", 0)
     num_visits += 1
     request.session["num_visits"] = num_visits
-    
+
     context = {
         "num_drivers": num_drivers,
         "num_cars": num_cars,
         "num_manufacturers": num_manufacturers,
         "num_visits": num_visits,
     }
-    
+
     return render(request, "taxi/index.html", context=context)
 
 
